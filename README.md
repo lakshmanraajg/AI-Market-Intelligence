@@ -5,7 +5,7 @@ A source-transparent Indian market research terminal. Phase 0 documents the prod
 ## What is implemented
 - Responsive Command Center UI with pre-market countdown, compact dashboard widgets, semantic freshness/status labels, AI fact/analysis separation and event-source evidence placeholders.
 - FastAPI health and market snapshot contract that returns `UNAVAILABLE` until a licensed adapter exists.
-- Docker local dependencies for PostgreSQL + pgvector and Redis.
+- Docker local stack for the frontend, FastAPI API, PostgreSQL + pgvector, and Redis.
 - Architecture, ERD, API, source-governance and environment specifications under `docs/`.
 
 ## Repository map
@@ -14,7 +14,7 @@ src/                 React/TypeScript command-center UI
 backend/app/         FastAPI versioned API foundation
 backend/tests/       API safety tests
 docs/                Phase 0 architecture and contracts
-docker-compose.yml   PostgreSQL/pgvector, Redis, API local environment
+docker-compose.yml   Frontend, API, PostgreSQL/pgvector, Redis local stack
 ```
 
 ## Run the UI
@@ -32,6 +32,15 @@ python -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
+
+## Run the full local stack
+```bash
+cp .env.example .env
+# Update POSTGRES_PASSWORD before exposing this stack beyond local development.
+docker compose up --build
+```
+
+The terminal is served at `http://localhost:3000`, the API at `http://localhost:8000`, and OpenAPI documentation at `http://localhost:8000/api/docs`. The UI reads `VITE_API_BASE_URL`; FastAPI permits only the configured `FRONTEND_ORIGINS` values. Phase 1 does not persist application records yet, so no Alembic migration is required; PostgreSQL is provisioned for the next data-model phase.
 
 ## Validation and CI
 ```bash
