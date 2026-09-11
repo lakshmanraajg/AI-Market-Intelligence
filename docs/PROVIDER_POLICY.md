@@ -1,0 +1,2 @@
+# Provider and licensing policy
+Each adapter is registered with provider, asset classes, endpoint, authentication method, rate limit, refresh cadence, entitlement, redistribution permission, attribution requirements and health status. No arbitrary scraping is permitted. A source may only be shown or redistributed within its licence. Market depth, real-time exchange data, options data and news require separately verified permissions.
